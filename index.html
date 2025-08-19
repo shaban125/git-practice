@@ -1,12 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mini Shop — Smart Watch & Mobile</title>
+  <style>
+    /* --- Basic Reset & Theme --- */
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background: #0f172a; color: #e2e8f0; }
+    :root {
+      --bg: #0f172a;          /* slate-900 */
+      --card: #111827;        /* gray-900 */
+      --muted: #94a3b8;       /* slate-400 */
+      --ring: #22d3ee;        /* cyan-400 */
+      --accent: #38bdf8;      /* sky-400 */
+      --accent-2: #a78bfa;    /* violet-400 */
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .wrapper { max-width: 1040px; margin: 0 auto; padding: 32px 16px 64px; }
+
+    header { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 28px; }
+    .brand { font-size: 20px; font-weight: 700; letter-spacing: .5px; }
+    .brand span { color: var(--accent); }
+
+    .tagline { font-size: 14px; color: var(--muted); }
+
+    /* --- Grid of Products --- */
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+    @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } }
+
+    .card { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00)), var(--card); border: 1px solid rgba(148,163,184,.15); border-radius: 20px; box-shadow: var(--shadow); overflow: hidden; display: flex; flex-direction: column; }
+
+    .media { position: relative; aspect-ratio: 16 / 10; display: grid; place-items: center; }
+    /* fun gradient ribbons for each product */
+    .media.watch { background: radial-gradient(60% 60% at 70% 30%, rgba(34,211,238,.45), transparent 60%), radial-gradient(60% 60% at 20% 70%, rgba(167,139,250,.35), transparent 60%), #0b1020; }
+    .media.phone { background: radial-gradient(60% 60% at 70% 30%, rgba(56,189,248,.45), transparent 60%), radial-gradient(60% 60% at 20% 70%, rgba(34,197,94,.30), transparent 60%), #0b1020; }
+
+    /* Simple inline SVGs so it works without external images */
+    .media svg { width: min(60%, 260px); height: auto; opacity: .9; filter: drop-shadow(0 8px 24px rgba(0,0,0,.35)); }
+
+    .content { padding: 18px 18px 20px; display: grid; gap: 10px; }
+    .title { font-size: 18px; font-weight: 700; }
+    .desc { font-size: 14px; color: var(--muted); line-height: 1.45; }
+    .price { margin-top: 4px; font-size: 16px; font-weight: 700; }
+
+    .actions { margin-top: 8px; display: flex; gap: 10px; }
+    .btn { flex: 0 0 auto; border: 1px solid rgba(148,163,184,.35); background: rgba(15,23,42,.6); color: #e2e8f0; padding: 10px 14px; font-weight: 600; border-radius: 999px; transition: transform .06s ease, background .2s ease, box-shadow .2s ease; box-shadow: 0 0 0 0 transparent; }
+    .btn:focus { outline: none; box-shadow: 0 0 0 3px rgba(34,211,238,.35); }
+    .btn:hover { background: rgba(148,163,184,.10); transform: translateY(-1px); }
+
+    .btn.primary { background: linear-gradient(90deg, var(--accent), var(--accent-2)); color: #0b1020; border: none; }
+    .btn.primary:hover { filter: brightness(1.05); }
+
+    footer { margin-top: 36px; text-align: center; color: var(--muted); font-size: 12px; }
+  </style>
 </head>
 <body>
-    <h1>hello world!</h1>
-    <h1>shaban</h1>
+  <div class="wrapper">
+    <header>
+      <div class="brand">Mini<span>Shop</span></div>
+      <div class="tagline">Two clean product cards with Buy Now buttons</div>
+    </header>
+
+    <main class="grid" aria-label="Products">
+      <!-- Product 1: Smart Watch -->
+      <article class="card" aria-labelledby="watch-title">
+        <figure class="media watch" aria-label="Smart watch image">
+          <!-- Simple watch glyph -->
+          <svg viewBox="0 0 200 200" role="img" aria-labelledby="watchAlt">
+            <title id="watchAlt">Minimal smart watch illustration</title>
+            <defs>
+              <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#22d3ee"/>
+                <stop offset="100%" stop-color="#a78bfa"/>
+              </linearGradient>
+            </defs>
+            <rect x="70" y="20" width="60" height="30" rx="8" fill="url(#g1)"/>
+            <rect x="40" y="40" width="120" height="120" rx="22" fill="#0f172a" stroke="#93c5fd" stroke-opacity=".35" stroke-width="3"/>
+            <circle cx="100" cy="100" r="40" fill="url(#g1)" opacity=".35"/>
+            <line x1="100" y1="60" x2="100" y2="100" stroke="#e2e8f0" stroke-width="6" stroke-linecap="round"/>
+            <line x1="100" y1="100" x2="130" y2="115" stroke="#e2e8f0" stroke-width="6" stroke-linecap="round"/>
+            <rect x="70" y="150" width="60" height="30" rx="8" fill="url(#g1)"/>
+          </svg>
+        </figure>
+        <div class="content">
+          <h2 class="title" id="watch-title">Smart Watch</h2>
+          <p class="desc">Track health, receive notifications, and enjoy a full-day battery in a sleek, comfy design.</p>
+          <div class="price">$129</div>
+          <div class="actions">
+            <a class="btn primary" href="#" aria-label="Buy Smart Watch now">Buy Now</a>
+            <a class="btn" href="#" aria-label="View details for Smart Watch">Details</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Product 2: Mobile Phone -->
+      <article class="card" aria-labelledby="phone-title">
+        <figure class="media phone" aria-label="Mobile phone image">
+          <!-- Simple phone glyph -->
+          <svg viewBox="0 0 200 200" role="img" aria-labelledby="phoneAlt">
+            <title id="phoneAlt">Minimal smartphone illustration</title>
+            <defs>
+              <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#38bdf8"/>
+                <stop offset="100%" stop-color="#34d399"/>
+              </linearGradient>
+            </defs>
+            <rect x="55" y="20" width="90" height="160" rx="18" fill="#0f172a" stroke="#86efac" stroke-opacity=".35" stroke-width="3"/>
+            <rect x="70" y="32" width="60" height="6" rx="3" fill="#94a3b8"/>
+            <circle cx="100" cy="150" r="10" fill="url(#g2)"/>
+            <rect x="65" y="50" width="70" height="80" rx="6" fill="url(#g2)" opacity=".25"/>
+          </svg>
+        </figure>
+        <div class="content">
+          <h2 class="title" id="phone-title">Mobile Phone</h2>
+          <p class="desc">Fast performance, sharp camera, and vibrant display for your everyday apps and games.</p>
+          <div class="price">$399</div>
+          <div class="actions">
+            <a class="btn primary" href="#" aria-label="Buy Mobile Phone now">Buy Now</a>
+            <a class="btn" href="#" aria-label="View details for Mobile Phone">Details</a>
+          </div>
+        </div>
+      </article>
+    </main>
+
+    <footer>
+      © <span id="year"></span> MiniShop. Demo page for learning HTML & CSS.
+    </footer>
+  </div>
+
+  <script>
+    // Small enhancement: keep the year current
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
